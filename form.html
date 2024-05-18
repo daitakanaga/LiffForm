@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>フォーム</title>
+  <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+  <script>
+    function initializeLiff() {
+      liff.init({ liffId: "2005170308-Bx5q35oo" })
+        .then(() => {
+          if (!liff.isLoggedIn()) {
+            liff.login();
+          }
+        })
+        .catch(err => {
+          console.error('LIFF Initialization failed', err);
+        });
+    }
+
+    function submitForm() {
+      const responses = {
+        q1: document.getElementById('q1').value,
+        q2: document.getElementById('q2').value,
+        q3: document.getElementById('q3').value,
+        q4: document.getElementById('q4').value,
+        q5: document.getElementById('q5').value,
+        q6: document.getElementById('q6').value,
+        q7: document.getElementById('q7').value,
+        q8: document.getElementById('q8').value,
+      };
+
+      fetch('https://script.google.com/macros/s/AKfycbw4jLxWsrjDjW4smsCrlwCJiy-W854Oh6GLoUtF1Ow0OXdUlE4Z_fum6-pqUx0Hxgg0TA/exec', {
+        method: 'POST',
+        body: JSON.stringify(responses),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert('送信成功: ' + JSON.stringify(data));
+        liff.closeWindow();
+      })
+      .catch(error => {
+        alert('送信失敗: ' + error);
+      });
+    }
+
+    window.onload = initializeLiff;
+  </script>
+</head>
+<body>
+  <form id="liff-form" onsubmit="event.preventDefault(); submitForm();">
+    <label for="q1">質問1:</label>
+    <input type="text" id="q1" name="q1"><br>
+    <label for="q2">質問2:</label>
+    <input type="text" id="q2" name="q2"><br>
+    <label for="q3">質問3:</label>
+    <input type="text" id="q3" name="q3"><br>
+    <label for="q4">質問4:</label>
+    <input type="text" id="q4" name="q4"><br>
+    <label for="q5">質問5:</label>
+    <input type="text" id="q5" name="q5"><br>
+    <label for="q6">質問6:</label>
+    <input type="text" id="q6" name="q6"><br>
+    <label for="q7">質問7:</label>
+    <input type="text" id="q7" name="q7"><br>
+    <label for="q8">質問8:</label>
+    <input type="text" id="q8" name="q8"><br>
+    <button type="submit">送信</button>
+  </form>
+</body>
+</html>
