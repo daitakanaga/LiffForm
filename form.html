@@ -7,7 +7,7 @@
   <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
   <script>
     function initializeLiff() {
-      liff.init({ liffId: "2005170308-Bx5q35oo" })
+      liff.init({ liffId: "YOUR_LIFF_ID" })
         .then(() => {
           if (!liff.isLoggedIn()) {
             liff.login();
@@ -43,6 +43,7 @@
         liff.closeWindow();
       })
       .catch(error => {
+        console.error('送信失敗:', error);
         alert('送信失敗: ' + error);
       });
     }
